@@ -16,15 +16,23 @@ import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 
 import { contactFormAction } from '@/lib/actions'
-import { ArrowUpRight, Check } from 'lucide-react'
-import Image from 'next/image'
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from './ui/select'
+	ArrowUpRight,
+	BookOpen,
+	Check,
+	Plus,
+	User,
+} from 'lucide-react'
+import Image from 'next/image'
+import { RadioGroup, RadioGroupItem } from './ui/radio-group'
+import { Alert, AlertDescription, AlertTitle } from './ui/alert'
+// import {
+// 	Select,
+// 	SelectContent,
+// 	SelectItem,
+// 	SelectTrigger,
+// 	SelectValue,
+// } from './ui/select'
 
 export function ContactForm({
 	className,
@@ -67,10 +75,8 @@ export function ContactForm({
 					height={90}
 					alt='logo'
 				/>
-				<CardTitle className='!mt-5'>Fysite Academy</CardTitle>
-				<CardDescription>
-					Register here and unlock your potential!
-				</CardDescription>
+				<CardTitle className='!mt-5'>Registration</CardTitle>
+				<CardDescription>{`Let's transform your ideas into site!`}</CardDescription>
 			</CardHeader>
 			<form action={formAction}>
 				<CardContent className='flex flex-col gap-6'>
@@ -143,23 +149,62 @@ export function ContactForm({
 							<span className='font-mono text-xs'>[3]</span> Need{' '}
 							<span aria-hidden='true'>*</span>
 						</Label>
-						<Select
-							name='need'
-							disabled={pending}
-							aria-invalid={!!state.errors?.need}
-							aria-errormessage='error-need'
-							defaultValue={state.defaultValues.need}>
-							<SelectTrigger
-								id='need'
-								className='group-data-[invalid=true]/field:border-destructive focus-visible:group-data-[invalid=true]/field:ring-destructive'>
-								<SelectValue placeholder='Select your need' />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value='academy'>Academy</SelectItem>
-								<SelectItem value='live class'>Live class</SelectItem>
-								<SelectItem value='webinar'>Webinar</SelectItem>
-							</SelectContent>
-						</Select>
+						<RadioGroup
+							defaultValue={state.defaultValues.need}
+							id='need'
+							name='need'>
+							<Alert className='flex space-x-3 rounded-none focus-within:border-black'>
+								<RadioGroupItem
+									value='module only'
+									id='option-one'
+								/>
+								<Label htmlFor='option-one'>
+									<BookOpen className='w-4 h-4 mb-2' />
+									<AlertTitle className='font-semibold'>
+										Module only{' '}
+										<span className='font-mono text-xs font-medium'>
+											[50K/lifetime]
+										</span>
+									</AlertTitle>
+									<AlertDescription className='text-xs'>
+										Access our complete web development module. With{' '}
+										<b>quiz and submission</b> checking feature +{' '}
+										<b>Group dicussion</b>. Trial module:{' '}
+										<a
+											target='_blank'
+											href='https://trial.fysite.id'
+											className='text-blue-600 underline'>
+											trial.fysite.id
+										</a>
+									</AlertDescription>
+								</Label>
+							</Alert>
+							<Alert className='flex space-x-3 rounded-none focus-within:border-black'>
+								<RadioGroupItem
+									value='mentor & career'
+									id='option-two'
+								/>
+								<Label htmlFor='option-two'>
+									<div className='flex space-x-1 mb-2'>
+										<BookOpen className='w-4 h-4' />
+										<Plus className='w-4 h-4' />
+										<User className='w-4 h-4' />
+									</div>
+									<AlertTitle className='font-semibold'>
+										Mentor & Career{' '}
+										<span className='font-mono text-xs font-medium'>
+											[400K/5 meet]
+										</span>
+									</AlertTitle>
+									<AlertDescription className='text-xs'>
+										Module only benefit + 5 times{' '}
+										<b>private mentoring</b> with detailed submission
+										explanation and earn certificates, opportunity to
+										work intern with us!
+									</AlertDescription>
+								</Label>
+							</Alert>
+						</RadioGroup>
 
 						{state.errors?.need && (
 							<p
@@ -233,7 +278,7 @@ export function ContactForm({
 							'Sending...'
 						) : (
 							<>
-								Register <ArrowUpRight className='-ml-1' />
+								Submit <ArrowUpRight className='-ml-1' />
 							</>
 						)}
 					</Button>
