@@ -43,7 +43,7 @@ export function ContactForm({
 			defaultValues: {
 				name: '',
 				email: '',
-				need: 'academy',
+				need: 'module only',
 				coupon: '',
 				message: '',
 			},
